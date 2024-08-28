@@ -6,7 +6,8 @@ import { UserContext } from '@/contexts/user-context';
 import { AlertsContext } from '@/contexts/alerts-context';
 import { Modal } from '../../utils/modal';
 import styles from './styles.module.scss';
-
+//similar to this one create a model for start challenge
+//create a  model for restart challenge
 export function SignoutModal() {
   const { isSignoutModalShown, closeSignoutModal } = useContextSafely(
     HeaderContext,

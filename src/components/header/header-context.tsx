@@ -11,7 +11,11 @@ export type HeaderContextType = {
   hamburgerMenuRef: RefObject<HTMLElement>;
   openHamburgerMenuBtnRef: RefObject<HTMLButtonElement>;
   closeHamburgerMenuBtnRef: RefObject<HTMLButtonElement>;
+  isStartChallengeModalShown: boolean;
+  setIsStartChallengeModalShown: (value: boolean) => void;
+  closeStartChallengeModal: () => void;
 };
+
 
 export enum HamburgerMenuState {
   open,
@@ -27,6 +31,7 @@ export function HeaderContextProvider({ children }: PropsWithChildren) {
   const [hamburgerMenuState, setHamburgerMenuState] = useState(
     HamburgerMenuState.closed,
   );
+  const [isStartChallengeModalShown, setIsStartChallengeModalShown] = useState(false);
   const [isSignoutModalShown, setIsSignoutModalShown] = useState(false);
   const hamburgerMenuRef = useRef<HTMLElement>(null);
   const openHamburgerMenuBtnRef = useRef<HTMLButtonElement>(null);
@@ -42,6 +47,9 @@ export function HeaderContextProvider({ children }: PropsWithChildren) {
       { once: true },
     );
   };
+  const startChallenge = async () => {
+    // 实现 startChallenge 的逻辑
+  };
   const closeHamburgerMenu = () => {
     setHamburgerMenuState(HamburgerMenuState.closing);
     hamburgerMenuRef.current?.addEventListener(
@@ -55,6 +63,9 @@ export function HeaderContextProvider({ children }: PropsWithChildren) {
   };
   const openSignoutModal = () => {
     setIsSignoutModalShown(true);
+  };
+  const closeStartChallengeModal = () => {
+    setIsStartChallengeModalShown(false);
   };
   const closeSignoutModal = () => {
     setIsSignoutModalShown(false);
@@ -72,6 +83,9 @@ export function HeaderContextProvider({ children }: PropsWithChildren) {
         isSignoutModalShown,
         openSignoutModal,
         closeSignoutModal,
+        isStartChallengeModalShown,
+        setIsStartChallengeModalShown,
+        closeStartChallengeModal,
       }}
     >
       {children}

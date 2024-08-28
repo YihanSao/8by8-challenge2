@@ -104,7 +104,28 @@ export function ClientSideUserContextProvider(
 
   /* istanbul ignore next */
   async function restartChallenge() {
-    throw new Error('not implemented.');
+    const restartChallenge = async (): Promise<void> => {
+      try {
+        //app
+        const response = await fetch('/api/restart_challenge', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          //use alerts-contexts
+          throw new Error('Failed to restart the challenge');
+        }
+  
+        const data = await response.json();
+        setUser((prevUser) => prevUser ? { ...prevUser, challengeEndTimestamp: data.challengeEndTimestamp } : null);
+      } catch (error) {
+        console.error('Error restarting challenge:', error);
+        throw error;
+      }
+    };
   }
 
   return (
